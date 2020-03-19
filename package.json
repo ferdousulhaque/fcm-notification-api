@@ -1,0 +1,73 @@
+{
+  "name": "nodejs-typescript",
+  "version": "1.0.0",
+  "description": "Nodejs Typescript",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npx tsc",
+    "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
+    "start": "npx pm2 start pm2.yaml",
+    "test": "jest --coverage --verbose",
+    "stop": "npx pm2 stop node-typescript",
+    "clear": "npx pm2 delete all",
+    "list": "npx pm2 list",
+    "logs": "npx pm2 logs"
+  },
+  "keywords": [
+    "push-type"
+  ],
+  "author": "A S Md Ferdousul Haque",
+  "dependencies": {
+    "@types/amqplib": "^0.5.13",
+    "@types/jsonschema": "^1.1.1",
+    "@types/mysql": "^2.15.9",
+    "amqp-ts": "^1.8.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^5.0.0-alpha.7",
+    "jsonschema": "^1.2.5",
+    "mysql": "^2.18.1",
+    "npx": "^10.2.2",
+    "pg": "^7.18.2",
+    "pg-format": "^1.0.4",
+    "pg-pool": "^2.0.10",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "tsc-watch": "^4.1.0",
+    "typescript": "^3.8.2",
+    "winston": "^3.2.1"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.0",
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^25.1.3",
+    "@types/node": "^13.7.6",
+    "@types/pg": "^7.14.1",
+    "@types/request-promise": "^4.1.45",
+    "@types/swagger-ui-express": "^4.1.1",
+    "jest": "^25.1.0",
+    "swagger-ui-express": "^4.1.3",
+    "ts-jest": "^25.2.1"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}

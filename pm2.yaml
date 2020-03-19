@@ -1,0 +1,6 @@
+apps:
+    - script: ./dist/server.js
+      name: node-typescript
+      max-memory-restart: 200MB
+      instances: max
+      exec_mode: cluster
