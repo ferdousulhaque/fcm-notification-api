@@ -19,13 +19,14 @@ export const getTimeModel = async () => {
     }
 }
 
-export const getUserInfoModel = async (msisdn: number) => {
-    let sql = "select * from account_msisdns where msisdn='"+msisdn+"'";
+export const getUserToken = async (msisdn: number) => {
+    let sql = "select fcm_token from fcm_tokens where msisdn='"+msisdn+"' order by id desc limit 1";
     let data : string[][] = [];
     let result : QueryResult;
     try {
         result = await dbUtil.sqlToDB(sql, data);
-        return result;
+        console.log(result);
+        //return result;
     } catch (error) {
         throw new Error(error.message);
     }

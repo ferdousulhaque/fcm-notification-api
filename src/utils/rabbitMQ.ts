@@ -1,6 +1,8 @@
 import * as Amqp from "amqp-ts";
 import logger = require('./../utils/logger');
 import config = require('./../config/config');
+import * as FCM from '../providers/firebaseNotificationProvider';
+import * as pgDb from "../models/pgsqlQuery";
 
 /*
  * Send transaction
@@ -16,6 +18,7 @@ export const send = async (data: any) => {
         retries: config.rabbitmq.retry,
         interval: config.rabbitmq.retryInterval
     });
+    //console.log(data);
     //logger.debug(await connection.isConnected);
 
     connection.on("open_connection", () => {
@@ -69,15 +72,21 @@ export const receive = async () => {
         queue.bind(exchange);
         // create a consumer function for the queue
         // this will keep running until the program is halted or is stopped with queue.stopConsumer()
-        queue.activateConsumer(function (message) {
+        queue.activateConsumer(async function (message) {
             // fake a second of work for every dot in the message
-            var content = message.getContent();
-            var seconds = content.split('.').length - 1;
-            logger.debug("Message received: " + content);
+            var content = await message.getContent();
+            var delay = 100;
+            //logger.info("Message received: " + content);
             setTimeout(function () {
-                logger.debug("[x] Done");
-                message.ack(); // acknowledge that the message has been received (and processed)
-            }, seconds * 1000);
+                pgDb.getUserToken(JSON.parse(content).msisdn).then((token) => {
+                    console.log(token);
+                    // FCM.pushNotificationViaFcmToken(config.firebase.testDevice,JSON.parse(content)).then(() => {
+                    //     logger.info("[x] Done");
+                    // });
+                })
+                
+            }, delay);
+            message.ack(); // acknowledge that the message has been received (and processed)
         }, {
             noAck: false
         });

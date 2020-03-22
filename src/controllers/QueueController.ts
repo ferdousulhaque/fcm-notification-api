@@ -7,8 +7,13 @@ import * as rabbit from '../utils/rabbitMQ';
 
 class QueueController {
 
-  public async send(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response) {
-    rabbit.send().then(()=> {
+  public async send(req: Request, res: Response) {
+    const details = {
+      title: req.body.push.title,
+      body: req.body.push.body,
+      deeplink: req.body.push.deeplink
+    };
+    rabbit.send(details).then(()=> {
       res.status(200).json({
         status: 'success'
       });

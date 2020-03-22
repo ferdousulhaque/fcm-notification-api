@@ -22,6 +22,11 @@ const config = {
       queueKey: process.env.PUSH_QUEUE_KEY || 'notification',
       retry: 3,
       retryInterval: 1500,
+  },
+  firebase: {
+    endpoint: process.env.FCM_ENDPOINT || '',
+    key: process.env.FCM_SERVER_KEY || '',
+    testDevice: process.env.FCM_TESTDEVICETOKEN || ''
   }
 }
 
