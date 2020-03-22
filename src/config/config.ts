@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config = {
-  serviceName: process.env.SERVICENAME || 'nodejs-typescript',
+  serviceName: process.env.SERVICENAME || 'notification-api',
   port: Number(process.env.PORT) || 8081,
   loggerLevel: 'debug',
   pgsqldb: {
@@ -15,14 +15,13 @@ const config = {
       max: Number(process.env.DB_MAX_CLIENTS) || 20,
       idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT_MS) || 30000
   },
-  mysqldb: {
-    user: process.env.MYSQL_DB_USER || '',
-    database: process.env.MYSQL_DB || '',
-    password: process.env.MYSQL_DB_PASS || '',
-    host: process.env.MYSQL_DB_IP || '',
-    port: Number(process.env.MYSQL_DB_PORT) || 5432,
-    max: Number(process.env.DB_MAX_CLIENTS) || 20,
-    idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT_MS) || 30000
+  rabbitmq: {
+      url: process.env.PUSH_QUEUE_URL || 'amqp://localhost',
+      user: process.env.RABBITMQ_USER || 'guest',
+      password: process.env.RABBITMQ_PASS || 'guest',
+      queueKey: process.env.PUSH_QUEUE_KEY || 'notification',
+      retry: 3,
+      retryInterval: 1500,
   }
 }
 

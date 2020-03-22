@@ -1,17 +1,31 @@
 import { Request, Response } from "express";
 import { queueController } from "../controllers/QueueController";
-import { cdrController } from "../controllers/cdrController";
-import { checkSearchParams } from "../middleware/checks";
-import { validateRequest } from "../middleware/validateRequest";
+import { validatePPGRequest } from "../middleware/validatePPGRequest";
+import { validateCMPRequest } from "../middleware/validateCMPRequest";
+import { whiteListIpToApi } from "../middleware/whiteListIp";
 
 export default [
+  // PPG Notification API
   {
-    path: "/v1/cdr/recharge/recharge-cdr",
+    path: "/push/ppg/fcm",
+    method: "get",
+    handler: [
+      whiteListIpToApi,
+      validatePPGRequest,
+      async (req: Request, res: Response) => {
+        queueController.send(req, res);
+      }
+    ]
+  },
+  // CMP Notification API
+  {
+    path: "/push/cmp/fcm",
     method: "post",
     handler: [
-      validateRequest,
+      //validateCMPRequest,
+      whiteListIpToApi,
       async (req: Request, res: Response) => {
-        cdrController.addtoRechargeTable(req, res);
+        queueController.send(req, res);
       }
     ]
   }

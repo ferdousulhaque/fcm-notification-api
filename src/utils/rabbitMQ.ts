@@ -1,31 +1,29 @@
 import * as Amqp from "amqp-ts";
-import dotenv from "dotenv";
 import logger = require('./../utils/logger');
-
-dotenv.config();
+import config = require('./../config/config');
 
 /*
  * Send transaction
  */
-export const send = async () => {
+export const send = async (data: any) => {
     const opt = {
         credentials: require('amqplib').credentials.plain(
-            'guest',
-            'guest'
+            config.rabbitmq.user,
+            config.rabbitmq.password
         )
     };
-    var connection = new Amqp.Connection(process.env.PUSH_QUEUE_URL, opt, {
-        retries: 3,
-        interval: 1500
+    var connection = new Amqp.Connection(config.rabbitmq.url, opt, {
+        retries: config.rabbitmq.retry,
+        interval: config.rabbitmq.retryInterval
     });
     //logger.debug(await connection.isConnected);
 
     connection.on("open_connection", () => {
         logger.debug("Opening connection");
         var exchange = connection.declareExchange("ExchangeName");
-        var queue = connection.declareQueue("notification");
+        var queue = connection.declareQueue(config.rabbitmq.queueKey);
         queue.bind(exchange);
-        var msg = new Amqp.Message("Ferdous");
+        var msg = new Amqp.Message(JSON.stringify(data));
         exchange.send(msg);
         logger.debug("Message send");
     });
@@ -43,7 +41,7 @@ export const send = async () => {
     // });
 
     connection.on("error_connection", (err) => {
-        logger.error("Error Connecting to RabbitMQ on " + process.env.PUSH_QUEUE_URL);
+        logger.error("Error Connecting to RabbitMQ on " + config.rabbitmq.url);
     });
 }
 
@@ -51,30 +49,21 @@ export const send = async () => {
  * Receive
  */
 export const receive = async () => {
-    // var connection = new Amqp.Connection(process.env.PUSH_QUEUE_URL);
-    // var exchange = connection.declareExchange("ExchangeName");
-    // var queue = connection.declareQueue("notification");
-    // queue.bind(exchange);
-    // await queue.activateConsumer((message) => {
-    //     logger.debug("Message received: " + message.getContent());
-    // });
-
-    // create a new connection (async)
     const opt = {
         credentials: require('amqplib').credentials.plain(
-            'guest',
-            'guest'
+            config.rabbitmq.user,
+            config.rabbitmq.password
         )
     };
-    var connection = new Amqp.Connection(process.env.PUSH_QUEUE_URL, opt, {
-        retries: 3,
-        interval: 1500
+    var connection = new Amqp.Connection(config.rabbitmq.url, opt, {
+        retries: config.rabbitmq.retry,
+        interval: config.rabbitmq.retryInterval
     });
 
     connection.on("open_connection", () => {
         var exchange = connection.declareExchange("ExchangeName");
         // declare a new queue, it will be created if it does not already exist (async)
-        var queue = connection.declareQueue("notification", {
+        var queue = connection.declareQueue(config.rabbitmq.queueKey, {
             durable: true
         });
         queue.bind(exchange);
@@ -95,6 +84,6 @@ export const receive = async () => {
     });
 
     connection.on("error_connection", (err) => {
-        logger.error("Error Connecting to RabbitMQ on " + process.env.PUSH_QUEUE_URL);
+        logger.error("Error Connecting to RabbitMQ on " + config.rabbitmq.url);
     });
 }
