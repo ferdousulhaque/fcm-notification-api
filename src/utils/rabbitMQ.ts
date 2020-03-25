@@ -80,10 +80,11 @@ export const receive = async () => {
             //logger.info("Message received: " + content);
             setTimeout(function () {
                 pgDb.getUserToken(JSON.parse(content).msisdn).then((token) => {
-                    //console.log(token.rows[0].fcm_token);
-                    FCM.pushNotificationViaFcmToken(token.rows[0].fcm_token || '',JSON.parse(content)).then(() => {
-                        logger.info("[x] Done");
-                    });
+                    token.rows.forEach(token => {
+                        FCM.pushNotificationViaFcmToken(token.fcm_token || '',JSON.parse(content)).then(() => {
+                            logger.info("[x] Done");
+                        });
+                    })
                 })
                 
             }, delay);
