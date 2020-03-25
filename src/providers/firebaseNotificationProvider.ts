@@ -32,6 +32,7 @@ export const pushNotificationViaFcmToken = async (token: string, details: any) =
                     'Authorization': 'Bearer '+ process.env.FCM_SERVER_KEY,
                     'content-type': 'application/json'
                 },
+                proxy:'http://10.84.93.11:9090',
                 url: `https://fcm.googleapis.com/fcm/send`,
                 body: JSON.stringify(request_data)
               }, (error, response, body) => {
