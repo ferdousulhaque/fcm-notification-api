@@ -25,6 +25,7 @@ export const pushNotificationViaFcmToken = async (token: string, details: any) =
                 key_2: "Hellowww"
             }
         }
+        //console.log(request_data);
         // 
         await request.post({
                 headers: {  

@@ -1,6 +1,11 @@
 apps:
     - script: ./dist/server.js
-      name: node-typescript
+      name: notification-api
       max-memory-restart: 200MB
-      instances: max
+      instances: 2
+      exec_mode: cluster
+    - script: ./dist/worker.js
+      name: worker
+      max-memory-restart: 200MB
+      instances: 2
       exec_mode: cluster

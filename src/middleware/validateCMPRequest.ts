@@ -5,64 +5,49 @@ import Validator = require('jsonschema');
 export const validateCMPRequest = (req: Request,
   res: Response,
   next: NextFunction) => {
-        var cdrRequestSchema = {
-          additionalProperties: false,
+        var cmpRequestSchema = {
+          additionalProperties: true,
           properties: {
-              msisdn: {
-                  id: '/properties/msisdn',
+              UserID: {
+                  id: 'UserID',
                   title: 'Check the MSISDN prefix',
                   type: 'string',
                   pattern: '^((?:(\\+?|00)?95)|0|00)?97[5-9]\\d{7}$',
                   minLength: 10,
                   maxLength: 12
               },
-              type: {
-                  id: '/properties/type',
-                  title: 'type',
+              NotificationText: {
+                  id: 'NotificationText',
+                  title: 'NotificationText',
                   type: 'string',
-                  minimum: 10
+                  minimum: 2
               },
-              transactionId: {
-                  id: '/properties/transactionId',
-                  title: 'transactionId',
+              NotificationTextContent: {
+                  id: 'NotificationTextContent',
+                  title: 'NotificationTextContent',
                   type: 'string',
-                  minimum: 10
+                  minimum: 2
               },
-              channel: {
-                  id: '/properties/channel',
-                  title: 'channel',
+              DeliverySubChannel: {
+                  id: 'DeliverySubChannel',
+                  title: 'DeliverySubChannel',
                   type: 'string',
-                  minimum: 10
-              },
-              push: {
-                  id: '/properties/push',
-                  title: 'push',
-                  type: 'object',
-                  required: ["title", "body"],
-                  properties: {
-                      title: {
-                          "type": "string"
-                      },
-                      body: {
-                          "type": "string"
-                      }
-                  }
+                  minimum: 2
               }
           },
           required: [
-              'msisdn',
-              'type',
-              'transactionId',
-              'channel',
-              'push'
+              'UserID',
+              'NotificationText',
+              'NotificationTextContent',
+              'DeliverySubChannel'
           ],
           type: 'object'
       };
 
         
         let requestBody = req.body;
-       
-        if(Validator.validate(requestBody,cdrRequestSchema).valid){
+        //console.log(Validator.validate(requestBody,cmpRequestSchema));
+        if(Validator.validate(requestBody,cmpRequestSchema).valid){
           next();
         }else{
           res.status(400).send({

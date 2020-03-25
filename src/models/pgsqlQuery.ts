@@ -25,8 +25,8 @@ export const getUserToken = async (msisdn: number) => {
     let result : QueryResult;
     try {
         result = await dbUtil.sqlToDB(sql, data);
-        console.log(result);
-        //return result;
+        //console.log(result);
+        return result;
     } catch (error) {
         throw new Error(error.message);
     }

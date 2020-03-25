@@ -13,7 +13,7 @@ export default [
       whiteListIpToApi,
       validatePPGRequest,
       async (req: Request, res: Response) => {
-        queueController.send(req, res);
+        queueController.send(req, res,0);
       }
     ]
   },
@@ -22,10 +22,10 @@ export default [
     path: "/push/cmp/fcm",
     method: "post",
     handler: [
-      //validateCMPRequest,
+      validateCMPRequest,
       whiteListIpToApi,
       async (req: Request, res: Response) => {
-        queueController.send(req, res);
+        queueController.send(req, res,1);
       }
     ]
   }

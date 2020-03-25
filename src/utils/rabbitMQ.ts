@@ -75,14 +75,15 @@ export const receive = async () => {
         queue.activateConsumer(async function (message) {
             // fake a second of work for every dot in the message
             var content = await message.getContent();
+            //console.log(content)
             var delay = 100;
             //logger.info("Message received: " + content);
             setTimeout(function () {
                 pgDb.getUserToken(JSON.parse(content).msisdn).then((token) => {
-                    console.log(token);
-                    // FCM.pushNotificationViaFcmToken(config.firebase.testDevice,JSON.parse(content)).then(() => {
-                    //     logger.info("[x] Done");
-                    // });
+                    //console.log(token.rows[0].fcm_token);
+                    FCM.pushNotificationViaFcmToken(token.rows[0].fcm_token || '',JSON.parse(content)).then(() => {
+                        logger.info("[x] Done");
+                    });
                 })
                 
             }, delay);
