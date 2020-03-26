@@ -77,17 +77,22 @@ export const receive = async () => {
             var content = await message.getContent();
             //console.log(content)
             var delay = 100;
+            //var total = 1000;
             //logger.info("Message received: " + content);
-            setTimeout(function () {
+            //setTimeout(function () {
                 pgDb.getUserToken(JSON.parse(content).msisdn).then((token) => {
                     token.rows.forEach(token => {
-                        FCM.pushNotificationViaFcmToken(token.fcm_token || '',JSON.parse(content)).then(() => {
-                            logger.info("[x] Done");
-                        });
+                        //console.log(token.fcm_token);
+                        setTimeout(function () {
+                            //console.log(token.fcm_token);
+                            FCM.pushNotificationViaFcmToken(token.fcm_token || '', JSON.parse(content)).then(() => {
+                                logger.info("[x] Done");
+                            });
+                        }, delay);
                     })
                 })
-                
-            }, delay);
+            //}, total);
+
             message.ack(); // acknowledge that the message has been received (and processed)
         }, {
             noAck: false

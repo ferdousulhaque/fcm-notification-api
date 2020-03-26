@@ -20,7 +20,7 @@ export const getTimeModel = async () => {
 }
 
 export const getUserToken = async (msisdn: number) => {
-    let sql = "select fcm_token from fcm_tokens where msisdn='"+msisdn+"' order by id desc limit 1";
+    let sql = "select fcm_token from fcm_tokens where msisdn='"+msisdn+"'";
     let data : string[][] = [];
     let result : QueryResult;
     try {

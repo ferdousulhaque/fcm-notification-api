@@ -21,7 +21,7 @@ const config = {
       password: process.env.RABBITMQ_PASS || 'guest',
       queueKey: process.env.PUSH_QUEUE_KEY || 'notification',
       retry: 3,
-      retryInterval: 1500,
+      retryInterval: 15,
   },
   firebase: {
     endpoint: process.env.FCM_ENDPOINT || '',
