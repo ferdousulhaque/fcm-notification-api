@@ -7,7 +7,10 @@ export const whiteListIpToApi = (req: Request,
         const whitelistedIps = [
             '::1',
             '127:0:0:1',
-            '0.0.0.0'
+            '0.0.0.0',
+            '10.84.255.12',
+            '10.84.73.198',
+            '10.84.73.199'
           ];
           //logger.debug(req.connection.remoteAddress);
           if(whitelistedIps.find((x) => x===req.connection.remoteAddress)){
