@@ -12,21 +12,27 @@ export const pushNotificationViaFcmToken = async (token: string, details: any) =
 
     try {
         if (token != null) {
+            let epochId = +Math.round(Date.now() / 1000) ;
             var request_data = {
                 to: token,
                 collapse_key: "type_a",
                 notification: {
                     body: details.body,
-                    title: details.title
+                    title: details.title,
+                    mutable_content: true,
+                    'content-available': true
                 },
                 data: {
                     body: details.body,
+                    description: details.body,
                     title: details.title,
-                    key_1: "mytm://pack/10",
-                    key_2: "Hellowww"
+                    shouldSave: 1,
+                    id: epochId,
+                    date: String(epochId),
+                    key_1: "testKey"
                 }
             }
-            //console.log(request_data);
+            //deeplink:"https://mytm.telenor.com.mm/thinGyan-instant",
             // 
             await request.post({
                 headers: {
@@ -37,7 +43,7 @@ export const pushNotificationViaFcmToken = async (token: string, details: any) =
                 url: `https://fcm.googleapis.com/fcm/send`,
                 body: JSON.stringify(request_data)
             }, (error, response, body) => {
-                if(error) logger.error(error);
+                if (error) logger.error(error);
 
                 if (response && response.statusCode == 200) {
                     return 'success'

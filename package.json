@@ -9,7 +9,7 @@
     "start": "npx pm2 start pm2.yaml",
     "test": "jest --coverage --verbose",
     "stop": "npx pm2 stop notification-api worker",
-    "clear": "npx pm2 delete all",
+    "clear": "npx pm2 delete notification-api worker",
     "list": "npx pm2 list",
     "logs": "npx pm2 logs"
   },
