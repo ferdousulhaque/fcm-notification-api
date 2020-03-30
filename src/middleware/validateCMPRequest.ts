@@ -51,6 +51,7 @@ export const validateCMPRequest = (req: Request,
           next();
         }else{
           res.status(400).send({
+            validationFailedFor: Validator.validate(requestBody,cmpRequestSchema),
             status : 'failed',
             message : 'Schema validation failed'
           })
