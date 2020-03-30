@@ -8,9 +8,9 @@ export default [
   // PPG Notification API
   {
     path: "/push/ppg/fcm",
-    method: "get",
+    method: "post",
     handler: [
-      whiteListIpToApi,
+      //whiteListIpToApi,
       validatePPGRequest,
       async (req: Request, res: Response) => {
         queueController.send(req, res,0);
@@ -23,7 +23,7 @@ export default [
     method: "post",
     handler: [
       validateCMPRequest,
-      whiteListIpToApi,
+      //whiteListIpToApi,
       async (req: Request, res: Response) => {
         queueController.send(req, res,1);
       }

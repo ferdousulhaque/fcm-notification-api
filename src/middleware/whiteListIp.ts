@@ -6,7 +6,7 @@ export const whiteListIpToApi = (req: Request,
   next: NextFunction) => {
         const whitelistedIps = [
             '::1',
-            '127:0:0:1',
+            '127.0.0.1',
             '0.0.0.0',
             '10.84.255.12',
             '10.84.73.198',
