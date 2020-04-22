@@ -2,6 +2,7 @@ import {Client, QueryResult} from 'pg';
 import * as dbUtil from './../utils/pgsqlUtil';
 import logger = require('./../utils/logger');
 const transactionSuccess : string = 'transaction success';
+import config = require('./../config/config');
 
 /* 
  * sample query
@@ -20,7 +21,7 @@ export const getTimeModel = async () => {
 }
 
 export const getUserToken = async (msisdn: number) => {
-    let sql = "select fcm_token, platform from fcm_tokens where msisdn='"+msisdn+"'";
+    let sql = "select fcm_token, platform from "+config.pgsqldb.table+" where msisdn='"+msisdn+"'";
     let data : string[][] = [];
     let result : QueryResult;
     try {

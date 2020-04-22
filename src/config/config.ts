@@ -13,7 +13,8 @@ const config = {
       host: process.env.REPLICATION_DB_IP || '',
       port: Number(process.env.REPLICATION_DB_PORT) || 5432,
       max: Number(process.env.DB_MAX_CLIENTS) || 20,
-      idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT_MS) || 30000
+      idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT_MS) || 30000,
+      table: process.env.FCM_TOKEN_TABLE || 'fcm_tokens',
   },
   rabbitmq: {
       url: process.env.PUSH_QUEUE_URL || 'amqp://localhost',
