@@ -85,7 +85,7 @@ export const receive = async () => {
                         //console.log(token.fcm_token);
                         setTimeout(function () {
                             //console.log(token.fcm_token);
-                            FCM.pushNotificationViaFcmToken(token.fcm_token || '', JSON.parse(content)).then(() => {
+                            FCM.pushNotificationViaFcmToken(token, JSON.parse(content)).then(() => {
                                 logger.info("[x] Done");
                             });
                         }, delay);

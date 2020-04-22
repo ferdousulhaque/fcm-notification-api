@@ -35,6 +35,7 @@
     "pg-pool": "^2.0.10",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
+    "simple-node-logger": "^18.12.24",
     "tsc-watch": "^4.1.0",
     "typescript": "^3.8.2",
     "winston": "^3.2.1"

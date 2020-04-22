@@ -16,7 +16,7 @@ class QueueController {
         msisdn: req.body.msisdn,
         title: req.body.push.title,
         body: req.body.push.body,
-        deeplink: req.body.push.deeplink
+        link: req.body.push.deeplink
       };
     }
 
@@ -24,7 +24,8 @@ class QueueController {
       details = {
         msisdn: req.body.UserID,
         title: req.body.NotificationText,
-        body: req.body.NotificationTextContent
+        body: req.body.NotificationTextContent,
+        link: req.body.P1
       };
     }
     if(details != null){

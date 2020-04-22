@@ -1,10 +1,11 @@
 import request from "request-promise";
 import dotenv from "dotenv";
 import logger = require('./../utils/logger');
+import filelogger = require('./../utils/filelogger');
 
 dotenv.config();
 
-export const pushNotificationViaFcmToken = async (token: string, details: any) => {
+export const pushNotificationViaFcmToken = async (token: any, details: any) => {
     // const key = process.env.FCM_SERVER_KEY;
     // const url = `https://fcm.googleapis.com/fcm/send`;
     // const response = await request(url);
@@ -12,28 +13,48 @@ export const pushNotificationViaFcmToken = async (token: string, details: any) =
 
     try {
         if (token != null) {
-            let epochId = +Math.round(Date.now() / 1000) ;
-            var request_data = {
-                to: token,
-                collapse_key: "type_a",
-                notification: {
-                    body: details.body,
-                    title: details.title,
-                    mutable_content: true,
-                    'content-available': true
-                },
-                data: {
-                    body: details.body,
-                    description: details.body,
-                    title: details.title,
-                    shouldSave: 1,
-                    id: epochId,
-                    date: String(epochId),
-                    key_1: "testKey"
+            let epochId = +Math.round(Date.now() / 1000);
+            var request_data = null;
+            if(token.platform === 'ios'){
+                request_data = {
+                    to: token.fcm_token,
+                    collapse_key: "type_a",
+                    data: {
+                        body: details.body,
+                        description: details.body,
+                        title: details.title,
+                        shouldSave: 1,
+                        id: epochId,
+                        date: String(epochId),
+                        key_1: "testKey",
+                        link: details.link
+                    },
+                    notification: {
+                        body: details.body,
+                        title: details.title,
+                        mutable_content: true,
+                        'content-available': true
+                    }
                 }
+            }else{
+                request_data = {
+                    to: token.fcm_token,
+                    collapse_key: "type_a",
+                    data: {
+                        body: details.body,
+                        description: details.body,
+                        title: details.title,
+                        shouldSave: 1,
+                        id: epochId,
+                        date: String(epochId),
+                        key_1: "testKey",
+                        link: details.link
+                    }
+                };
             }
-            //deeplink:"https://mytm.telenor.com.mm/thinGyan-instant",
-            // 
+
+            //console.log(request_data);
+
             await request.post({
                 headers: {
                     'Authorization': 'Bearer ' + process.env.FCM_SERVER_KEY,
@@ -45,12 +66,18 @@ export const pushNotificationViaFcmToken = async (token: string, details: any) =
             }, (error, response, body) => {
                 if (error) logger.error(error);
 
+                // file logger for the request
+                //filelogger.info(new Date().toJSON(),' - ',details.msisdn, ' - ',token.platform, ' - ', response.statusCode,' - ',body);
+
                 if (response && response.statusCode == 200) {
                     return 'success'
                 } else {
                     return 'failed'
                 }
             });
+
+            // file logger for the request
+            filelogger.info(new Date().toJSON(),' - ',details.msisdn, ' - ',token.platform, ' - Push Body - ', JSON.stringify(request_data));
         }
     } catch (e) {
         //console.log(e)
