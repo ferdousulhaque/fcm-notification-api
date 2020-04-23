@@ -27,7 +27,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                         id: epochId,
                         date: String(epochId),
                         key_1: "testKey",
-                        link: details.link
+                        deeplink: details.link
                     },
                     notification: {
                         body: details.body,
