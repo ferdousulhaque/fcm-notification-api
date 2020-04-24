@@ -21,7 +21,7 @@ export const getTimeModel = async () => {
 }
 
 export const getUserToken = async (msisdn: number) => {
-    let sql = "select fcm_token, platform from "+config.pgsqldb.table+" where msisdn='"+msisdn+"'";
+    let sql = "select fcm_token, platform, device_id from "+config.pgsqldb.table+" where msisdn='"+msisdn+"'";
     let data : string[][] = [];
     let result : QueryResult;
     try {
