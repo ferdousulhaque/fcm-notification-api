@@ -16,9 +16,6 @@ This is a notification API for the myTelenor mobile application.
 
 Here in this framework I tried to cater all the requirements to make this as the best possible framework to start with.
 
-## Structure
-
-
 ## Building the app
 
 You need to run the following command to start the application for development. There is one post npm installing command the first one, later you can run only the second one.
@@ -55,4 +52,13 @@ npm run clear
 ### Check the cluster instance logs
 ```
 npm run logs
+```
+
+### For Troubleshooting PM2
+
+```
+pm2 kill
+rm -rf node_modules
+npm i
+npm run start
 ```
