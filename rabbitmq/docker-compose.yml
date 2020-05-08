@@ -1,6 +1,7 @@
 version: '3'
 services:
     rabbitmq:
+        restart: always
         image: rabbitmq:3.7.5-management
         hostname: app-rabbitmq
         ports:
