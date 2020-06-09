@@ -4,6 +4,8 @@ import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 import logger = require('../utils/logger');
 import * as rabbit from '../utils/rabbitMQ';
+// import * as sendRmq from '../utils/sendRmq';
+// import * as receiveRmq from '../utils/receiveRmq';
 
 class QueueController {
 
@@ -33,7 +35,7 @@ class QueueController {
         res.status(200).json({
           status: 'success'
         });
-      })
+      }).catch(e => logger.debug(e))
     }else{
       res.status(400).json({
         status: 'failed'
@@ -47,7 +49,7 @@ class QueueController {
       res.status(200).json({
         status: 'success'
       });
-    })
+    }).catch(e => logger.debug(e));
   }
 }
 

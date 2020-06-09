@@ -67,7 +67,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                 if (error) logger.error(error);
 
                 // file logger for the request
-                filelogger.info(new Date().toJSON(),' - ',details.msisdn,' - ',token.device_id,' - ',token.platform, ' - ', response.statusCode,' - ',body);
+                filelogger.info(new Date().toJSON(),' - ',details.msisdn,' - ',token.device_id,' - ',token.fcm_token,' - ',token.platform, ' - ', response.statusCode,' - ',body);
 
                 if (response && response.statusCode == 200) {
                     return 'success'

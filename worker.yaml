@@ -1,0 +1,6 @@
+apps:
+    - script: ./dist/worker.js
+      name: worker
+      max-memory-restart: 2G
+      instances: 4
+      exec_mode: cluster

@@ -1,9 +1,10 @@
 const config = require('../config/config');
+const moment = require('moment-timezone');
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, printf } = format;
  
 const loggerFormat = printf((info : any) => {
-    return `${info.timestamp} | ${info.level}: ${info.message}`;
+    return moment.tz('Asia/Yangon').format()+` | ${info.level}: ${info.message}`;
 });
  
 const logger = createLogger({

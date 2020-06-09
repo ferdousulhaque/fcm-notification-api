@@ -3,7 +3,6 @@ import * as sampleModel from "../models/pgsqlQuery";
 import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 import logger = require('../utils/logger');
-import * as rabbit from '../utils/rabbitMQ';
 import * as FCM from '../providers/firebaseNotificationProvider';
 import dotenv from "dotenv";
 

@@ -42,29 +42,11 @@ connection.on("error_connection", (err) => {
 });
 
 /*
- * Send transaction
- */
-export const send = async (data: any) => {
-    try {
-        var exchange = connection.declareExchange("ExchangeName");
-        var queue = connection.declareQueue(config.rabbitmq.queueKey, {
-            durable: true
-        });
-        queue.bind(exchange);
-        var msg = new Amqp.Message(JSON.stringify(data));
-        exchange.send(msg);
-        logger.info("Message Send to RabbitMQ");
-    } catch (e) {
-        throw Error("No Live Connections");
-    }
-}
-
-/*
  * Receive
  */
 export const receive = async () => {
     try {
-        logger.info("Worker Listening");
+        logger.info("Worker Execute");
         var exchange = connection.declareExchange("ExchangeName");
         // declare a new queue, it will be created if it does not already exist (async)
         var queue = connection.declareQueue(config.rabbitmq.queueKey, {
@@ -76,7 +58,7 @@ export const receive = async () => {
         queue.activateConsumer(async function (message) {
             // fake a second of work for every dot in the message
             var content = await message.getContent();
-            logger.debug("Got a Queue");
+            //console.log(content)
             var delay = 100;
             //var total = 1000;
             //logger.info("Message received: " + content);
@@ -87,7 +69,7 @@ export const receive = async () => {
                     setTimeout(function () {
                         //console.log(token.fcm_token);
                         FCM.pushNotificationViaFcmToken(token, JSON.parse(content)).then(() => {
-                            logger.info("[x] Done Processing");
+                            logger.info("[x] Done");
                         });
                     }, delay);
                 })

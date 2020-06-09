@@ -1,0 +1,6 @@
+apps:
+    - script: ./dist/server.js
+      name: web-api
+      max-memory-restart: 2G
+      instances: 4
+      exec_mode: cluster
