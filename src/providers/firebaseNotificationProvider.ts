@@ -53,7 +53,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                 };
             }
 
-            console.log(details.isSave);
+            //console.log(request_data);
 
             await request.post({
                 headers: {
