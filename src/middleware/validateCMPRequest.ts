@@ -33,6 +33,13 @@ export const validateCMPRequest = (req: Request,
                   title: 'DeliverySubChannel',
                   type: 'string',
                   minimum: 2
+              },
+              P3: {
+                id: 'P3',
+                title: 'shouldSave Parameter',
+                type: 'number',
+                minimum: 0,
+                maximum: 1
               }
           },
           required: [
@@ -51,7 +58,7 @@ export const validateCMPRequest = (req: Request,
           next();
         }else{
           res.status(400).send({
-            validationFailedFor: Validator.validate(requestBody,cmpRequestSchema),
+            validationFailedFor: Validator.validate(requestBody,cmpRequestSchema).errors,
             status : 'failed',
             message : 'Schema validation failed'
           })

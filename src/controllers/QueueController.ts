@@ -27,7 +27,8 @@ class QueueController {
         msisdn: req.body.UserID,
         title: req.body.NotificationText,
         body: req.body.NotificationTextContent,
-        link: req.body.P1
+        link: req.body.P1,
+        isSave: req.body.P3
       };
     }
     if(details != null){

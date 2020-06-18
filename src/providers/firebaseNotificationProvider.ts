@@ -23,7 +23,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                         body: details.body,
                         description: details.body,
                         title: details.title,
-                        shouldSave: 1,
+                        shouldSave: (typeof(details.isSave) != "undefined") ?parseInt(details.isSave):1,
                         id: epochId,
                         date: String(epochId),
                         key_1: "testKey",
@@ -44,7 +44,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                         body: details.body,
                         description: details.body,
                         title: details.title,
-                        shouldSave: 1,
+                        shouldSave: (typeof(details.isSave) != "undefined") ?parseInt(details.isSave):1,
                         id: epochId,
                         date: String(epochId),
                         key_1: "testKey",
@@ -53,7 +53,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                 };
             }
 
-            //console.log(request_data);
+            console.log(details.isSave);
 
             await request.post({
                 headers: {
