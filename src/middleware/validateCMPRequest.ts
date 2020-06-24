@@ -37,9 +37,10 @@ export const validateCMPRequest = (req: Request,
               P3: {
                 id: 'P3',
                 title: 'shouldSave Parameter',
-                type: 'number',
+                type: 'string',
                 minimum: 0,
-                maximum: 1
+                maximum: 1,
+                pattern: "^([0-1]|1)$"
               }
           },
           required: [
@@ -51,18 +52,16 @@ export const validateCMPRequest = (req: Request,
           type: 'object'
       };
 
-        
-        let requestBody = req.body;
-        //console.log(Validator.validate(requestBody,cmpRequestSchema));
-        if(Validator.validate(requestBody,cmpRequestSchema).valid){
-          next();
-        }else{
-          res.status(400).send({
-            validationFailedFor: Validator.validate(requestBody,cmpRequestSchema).errors,
-            status : 'failed',
-            message : 'Schema validation failed'
-          })
-        }
 
-        
-  };
+      let requestBody = req.body;
+      //console.log(Validator.validate(requestBody,cmpRequestSchema));
+      if(Validator.validate(requestBody,cmpRequestSchema).valid){
+        next();
+      }else{
+        res.status(400).send({
+          validationFailedFor: Validator.validate(requestBody,cmpRequestSchema).errors,
+          status : 'failed',
+          message : 'Schema validation failed'
+        })
+      }
+};
