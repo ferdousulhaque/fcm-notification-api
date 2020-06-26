@@ -16,8 +16,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
             let epochId = +Math.round(Date.now() / 1000);
             var request_data = null;
             if(token.platform === 'ios'){
-                let nid : any;
-                nid = (typeof(details.isSave) != "undefined" && parseInt(details.isSave) === 1) ? epochId:null;
+                epochId = (typeof(details.isSave) != "undefined" && parseInt(details.isSave) === 1) ? epochId:1277549899;
                 request_data = {
                     to: token.fcm_token,
                     collapse_key: "type_a",
@@ -26,7 +25,7 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                         description: details.body,
                         title: details.title,
                         shouldSave: (typeof(details.isSave) != "undefined") ?parseInt(details.isSave):1,
-                        id: nid,
+                        id: epochId,
                         date: String(epochId),
                         key_1: "testKey",
                         deeplink: details.link
