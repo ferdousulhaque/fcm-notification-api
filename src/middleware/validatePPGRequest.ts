@@ -12,7 +12,7 @@ export const validatePPGRequest = (req: Request,
                   id: '/properties/msisdn',
                   title: 'Check the MSISDN prefix',
                   type: 'string',
-                  pattern: '^((?:(\\+?|00)?95)|0|00)?97[5-9]\\d{7}$',
+                  pattern: '^((?:(\\+?|00)?95)|0|00)?97[4-9]\\d{7}$',
                   minLength: 10,
                   maxLength: 12
               },
