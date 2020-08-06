@@ -34,6 +34,12 @@ export const validateCMPRequest = (req: Request,
                   type: 'string',
                   minimum: 2
               },
+              P1: {
+                id: 'P1',
+                title: 'deeplink Parameter [optional]',
+                type: 'string',
+                pattern: "^(mytm|http|https):\/\/[^ \"]+$"
+              },
               P3: {
                 id: 'P3',
                 title: 'shouldSave Parameter',
@@ -41,6 +47,12 @@ export const validateCMPRequest = (req: Request,
                 minimum: 0,
                 maximum: 1,
                 pattern: "^([0-1]|1)$"
+              },
+              P12: {
+                id: 'P12',
+                title: 'banner image Parameter [optional]',
+                type: 'string',
+                pattern: "^(http|https):\/\/[^ \"]+$"
               }
           },
           required: [

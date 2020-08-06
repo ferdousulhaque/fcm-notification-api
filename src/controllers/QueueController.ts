@@ -13,24 +13,26 @@ class QueueController {
     
     var details = null;
 
-    if(isCmp === 0){
-      details = {
-        msisdn: req.body.msisdn,
-        title: req.body.push.title,
-        body: req.body.push.body,
-        link: req.body.push.deeplink
-      };
-    }
-
     if(isCmp === 1){
       details = {
         msisdn: req.body.UserID,
         title: req.body.NotificationText,
         body: req.body.NotificationTextContent,
         link: req.body.P1,
-        isSave: req.body.P3
+        isSave: req.body.P3,
+        banner: req.body.P12
+      };
+    }else{
+      details = {
+        msisdn: req.body.msisdn,
+        title: req.body.push.title,
+        body: req.body.push.body,
+        link: req.body.push.deeplink,
+        isSave: req.body.isSave,
+        banner: req.body.push.banner
       };
     }
+
     if(details != null){
       rabbit.send(details).then(()=> {
         res.status(200).json({

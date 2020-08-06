@@ -45,8 +45,28 @@ export const validatePPGRequest = (req: Request,
                       },
                       body: {
                           "type": "string"
+                      },
+                      deeplink: {
+                        id: 'deeplink',
+                        title: 'deeplink Parameter [optional]',
+                        type: 'string',
+                        pattern: "^(mytm|http|https):\/\/[^ \"]+$"
+                      },
+                      banner: {
+                        id: 'banner',
+                        title: 'banner image Parameter [optional]',
+                        type: 'string',
+                        pattern: "^(http|https):\/\/[^ \"]+$"
                       }
                   }
+              },
+              isSave: {
+                id: 'isSave',
+                title: 'isSave Parameter',
+                type: 'string',
+                minimum: 0,
+                maximum: 1,
+                pattern: "^([0-1]|1)$"
               }
           },
           required: [
@@ -66,6 +86,7 @@ export const validatePPGRequest = (req: Request,
           next();
         }else{
           res.status(400).send({
+            validationFailedFor: Validator.validate(requestBody,cdrRequestSchema).errors,
             status : 'failed',
             message : 'Schema validation failed'
           })

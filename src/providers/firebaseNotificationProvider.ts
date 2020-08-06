@@ -27,8 +27,10 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                         shouldSave: (typeof(details.isSave) != "undefined") ?parseInt(details.isSave):1,
                         id: epochId,
                         date: String(epochId),
-                        key_1: "testKey",
-                        deeplink: details.link
+                        deeplink: details.link,
+                        banner: {
+                            img: details.banner
+                        }
                     },
                     notification: {
                         body: details.body,
@@ -48,8 +50,10 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                         shouldSave: (typeof(details.isSave) != "undefined") ?parseInt(details.isSave):1,
                         id: epochId,
                         date: String(epochId),
-                        key_1: "testKey",
-                        link: details.link
+                        link: details.link,
+                        banner: {
+                            img: details.banner
+                        }
                     }
                 };
             }
