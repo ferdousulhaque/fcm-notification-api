@@ -16,7 +16,6 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
             let epochId = +Math.round(Date.now() / 1000);
             var request_data = null;
             if(token.platform === 'ios'){
-                epochId = (typeof(details.isSave) != "undefined" && parseInt(details.isSave) === 1) ? epochId:1277549899;
                 request_data = {
                     to: token.fcm_token,
                     collapse_key: "type_a",
@@ -38,6 +37,11 @@ export const pushNotificationViaFcmToken = async (token: any, details: any) => {
                         mutable_content: true,
                         'content-available': true
                     }
+                }
+
+                if(typeof(details.isSave) != "undefined" && parseInt(details.isSave) === 0){
+                    delete request_data.data.id;
+                    delete request_data.data.date;
                 }
             }else{
                 request_data = {
