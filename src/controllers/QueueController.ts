@@ -20,7 +20,7 @@ class QueueController {
         body: req.body.NotificationTextContent,
         link: req.body.P1,
         isSave: req.body.P3,
-        banner: req.body.P12
+        banner: req.body.P10
       };
     }else{
       details = {

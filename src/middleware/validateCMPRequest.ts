@@ -48,8 +48,8 @@ export const validateCMPRequest = (req: Request,
                 maximum: 1,
                 pattern: "^([0-1]|1)$"
               },
-              P12: {
-                id: 'P12',
+              P10: {
+                id: 'P10',
                 title: 'banner image Parameter [optional]',
                 type: 'string',
                 pattern: "^(http|https):\/\/[^ \"]+$"
